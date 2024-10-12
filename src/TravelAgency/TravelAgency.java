@@ -8,15 +8,9 @@ public class TravelAgency {
 	TicketsManager ticketsManager;
 	TouristsManager touristsManager;
 
-	TicketsManagerMenuCommand ticketsManagerMenuCommand;
-	TouristsManagerMenuCommand touristsManagerMenuCommand;
-
 	public TravelAgency() {
 		ticketsManager = new TicketsManager();
 		touristsManager = new TouristsManager();
-
-		ticketsManagerMenuCommand = new TicketsManagerMenuCommand(ticketsManager);
-		touristsManagerMenuCommand = new TouristsManagerMenuCommand(touristsManager);
 	}
 
 	public void menu() {
@@ -35,12 +29,24 @@ public class TravelAgency {
 				case 0:
 					return;
 				case 1:
-					ticketsManagerMenuCommand.execute();
+					ticketsManagerMenu(ticketsManager).execute();
 					break;
 				case 2:
-					touristsManagerMenuCommand.execute();
+					touristsManagerMenu(touristsManager).execute();
 					break;
 			}
 		}
+	}
+
+	public Command ticketsManagerMenu(TicketsManager ticketsManager) {
+		TicketsManagerMenuCommand ticketsManagerMenuCommand = new TicketsManagerMenuCommand(ticketsManager);
+
+		return ticketsManagerMenuCommand;
+	}
+
+	public Command touristsManagerMenu(TouristsManager touristsManager) {
+		TouristsManagerMenuCommand touristsManagerMenuCommand = new TouristsManagerMenuCommand(touristsManager);
+
+		return touristsManagerMenuCommand;
 	}
 }
