@@ -2,14 +2,22 @@ package TravelAgency.TouristsManager;
 
 import Main.Main;
 import TravelAgency.TicketsManager.TicketManager.Ticket;
+import TravelAgency.TicketsManager.TicketManager.TicketManager;
+import TravelAgency.TicketsManager.TicketsManager;
+
 import java.util.ArrayList;
 
 public class TouristsManager {
 	ArrayList<Tourist> tourists;
 
-	public void menu() {
+	public TouristsManager() {
+		tourists = new ArrayList<>();
+	}
+
+	/* --- menu --- */
+	public void menu(TicketsManager ticketsManager) {
 		while (true) {
-			int menu_select = 0;
+			int menuSelect = 0;
 
 			System.out.println("\n --- Tourists manager menu --- ");
 			System.out.println(" 0. Exit");
@@ -18,45 +26,105 @@ public class TouristsManager {
 			System.out.println(" 3. Add new tourist");
 			System.out.println(" 4. Delete tourist");
 
-			menu_select = Main.enterIntValue("Select an item:", 0, 4);
+			menuSelect = Main.enterIntValue("Select an item:", 0, 4);
 			System.out.println(" --- Tourists manager menu --- ");
 
-			switch (menu_select) {
+			switch (menuSelect) {
 				case 0:
 					return;
 				case 1:
 					printTourists();
 					break;
 				case 2:
-					touristsMenu();
+					touristsMenu(ticketsManager);
 					break;
 				case 3:
 					addTourist();
 					break;
 				case 4:
-					deleteTourist();
+					deleteTourist(ticketsManager);
 					break;
 			}
 		}
 	}
+	/* --- menu --- */
 
-	public void printTourists() {
+	/* --- menu realization--- */
+	private void printTourists() {
+		System.out.println("\n --- Tourists --- ");
+		if (tourists == null || tourists.isEmpty()) {
+			System.out.println("Tourists list is empty");
+		}
 
+		else {
+			for (Tourist tourist:tourists) {
+				System.out.println(tourist);
+			}
+		}
+
+		System.out.println(" --- Tourists --- ");
 	}
 
-	public void touristsMenu() {
+	public void touristsMenu(TicketsManager ticketsManager) {
+		System.out.println("\n --- Tourist menu --- ");
+		Tourist tourist = getTourist();
 
+		if (tourist != null) {
+			tourist.menu(ticketsManager);
+		}
+
+		System.out.println(" --- Tourist menu --- ");
 	}
 
-	public void addTourist() {
+	private void addTourist() {
+		System.out.println("\n --- Add tourist --- ");
+		Tourist tourist = Tourist.newTourist();
 
+		if (tourist != null) {
+			tourists.add(tourist);
+		}
+		System.out.println(" --- Add tourist --- ");
 	}
 
-	public void deleteTourist() {
+	private void deleteTourist(TicketsManager ticketsManager) {
+		System.out.println("\n --- Delete tourist --- ");
+		Tourist tourist = getTourist();
 
+		if (tourist != null) {
+			tourist.close(ticketsManager);
+			tourists.remove(tourist);
+		}
+		System.out.println(" --- Delete tourist --- ");
+	}
+	/* --- menu realization--- */
+
+	/* --- others --- */
+	private boolean printTouristsIndex() {
+		if (tourists == null || tourists.isEmpty()) {
+			System.out.println("Tourists list is empty");
+			return false;
+		}
+
+		for (int i = 0; i < tourists.size();i++) {
+			System.out.println(" - " + i + "  " + tourists.get(i).getName());
+		}
+
+		return true;
 	}
 
-	public Ticket getTourist() {
-		return null;
+	public void deleteCreatedTicket(Ticket ticket) {
+		for (Tourist tourist:tourists) {
+			tourist.deleteCreatedTicket(ticket);
+		}
 	}
+
+	public Tourist getTourist() {
+		if (!printTouristsIndex()) {
+			return null;
+		}
+
+		int touristIndex = Main.enterIntValue("Select a tourist:", 0, tourists.size() - 1);
+		return tourists.get(touristIndex);
+	}
+	/* --- others --- */
 }

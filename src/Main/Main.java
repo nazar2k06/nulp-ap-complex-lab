@@ -6,13 +6,7 @@ import java.util.Scanner;
 public class Main {
 	public static void main(String[] args) {
 		TravelAgency travelAgency = new TravelAgency();
-		TravelAgencyMenu(travelAgency).execute();
-	}
-
-	public static Command TravelAgencyMenu(TravelAgency travelAgency) {
-		TravelAgencyMenuCommand menu = new TravelAgencyMenuCommand(travelAgency);
-
-		return menu;
+		travelAgency.userMenu();
 	}
 
 	public static int enterIntValue(String hint, int min, int max) {

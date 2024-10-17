@@ -2,14 +2,22 @@ package TravelAgency.TicketsManager;
 
 import Main.Main;
 import TravelAgency.TicketsManager.TicketManager.*;
+import TravelAgency.TouristsManager.TouristsManager;
+
 import java.util.ArrayList;
 
 public class TicketsManager {
 	ArrayList<TicketManager> ticketManagers;
 
-	public void menu() {
+	public TicketsManager() {
+		ticketManagers = new ArrayList<>();
+	}
+
+
+	/* --- menu --- */
+	public void menu(TouristsManager touristsManager) {
 		while (true) {
-			int menu_select = 0;
+			int menuSelect = 0;
 
 			System.out.println("\n --- Tickets manager menu --- ");
 			System.out.println(" 0. Exit");
@@ -17,42 +25,107 @@ public class TicketsManager {
 			System.out.println(" 2. Add new ticket");
 			System.out.println(" 3. Delete ticket");
 
-			menu_select = Main.enterIntValue("Select an item:", 0, 3);
+			menuSelect = Main.enterIntValue("Select an item:", 0, 3);
 			System.out.println(" --- Tickets manager menu --- ");
 
-			switch (menu_select) {
+			switch (menuSelect) {
 				case 0:
 					return;
 				case 1:
-					printAvailableTickets();
+					printAvailableTicketsUI();
 					break;
 				case 2:
-					addTicket();
+					addTicketUI();
 					break;
 				case 3:
-					deleteTicket();
+					deleteTicketUI(touristsManager);
 					break;
 			}
 		}
 	}
+	/* --- menu --- */
 
-	public void printAvailableTickets() {
+	/* --- menu realization--- */
+	private void printAvailableTicketsUI() {
+		System.out.print("\n --- Available tickets --- ");
+		if (ticketManagers == null || ticketManagers.isEmpty()) {
+			System.out.println("\nTickets list is empty");
+		}
 
+		else {
+			for (TicketManager ticketManager:ticketManagers) {
+				System.out.println(ticketManager);
+			}
+		}
+
+		System.out.println("\n --- Available tickets --- ");
 	}
 
-	public void addTicket() {
+	private void addTicketUI() {
+		System.out.println("\n --- Add ticket manager --- ");
+		TicketManager ticketManager = TicketManager.newTicketManager();
 
+		if (ticketManager != null) {
+			ticketManagers.add(ticketManager);
+		}
+		System.out.println(" --- Add ticket manager --- ");
 	}
 
-	public void deleteTicket() {
+	private void deleteTicketUI(TouristsManager touristsManager) {
+		System.out.println("\n --- Delete ticket --- ");
+		TicketManager ticketManager = getTicketManager();
 
+		if (ticketManager != null) {
+			ticketManager.close(touristsManager);
+			ticketManagers.remove(ticketManager);
+		}
+		System.out.println(" --- Delete ticket --- ");
 	}
+	/* --- menu realization--- */
 
-	public Ticket getTicket() {
-		return null;
+	/* --- getters & setters --- */
+	private TicketManager getTicketManager() {
+		if (!printTicketManagersIndex()) {
+			return null;
+		}
+
+		int ticketManagerIndex = Main.enterIntValue("Select an item:", 0, ticketManagers.size() - 1);
+		return ticketManagers.get(ticketManagerIndex);
+	}
+	/* --- getters & setters --- */
+
+	/* --- others --- */
+	private boolean printTicketManagersIndex() {
+		if (ticketManagers == null || ticketManagers.isEmpty()) {
+			System.out.println("Tickets list is empty");
+			return false;
+		}
+
+		for (int i = 0; i < ticketManagers.size();i++) {
+			System.out.println(" - " + i + "  " + ticketManagers.get(i).getName());
+		}
+
+		return true;
 	}
 
 	public void deleteCreatedTicket(Ticket ticket) {
-
+		for (TicketManager ticketManager:ticketManagers) {
+			ticketManager.deleteCreatedTicket(ticket);
+		}
 	}
+
+	public Ticket getTicket() {
+		if (!printTicketManagersIndex()) {
+			return null;
+		}
+
+		TicketManager ticketManager;
+		int ticketManagerIndex = Main.enterIntValue("Select a ticket:", 0, ticketManagers.size() - 1);
+
+		ticketManager = ticketManagers.get(ticketManagerIndex);
+
+		return ticketManager.getTicket();
+	}
+	/* --- others --- */
+
 }

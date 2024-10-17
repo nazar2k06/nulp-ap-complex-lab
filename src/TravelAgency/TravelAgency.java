@@ -13,40 +13,57 @@ public class TravelAgency {
 		touristsManager = new TouristsManager();
 	}
 
-	public void menu() {
+
+	/* --- menu --- */
+	public void userMenu() {
 		while (true) {
-			int menu_select = 0;
+			int menuSelect = 0;
 
 			System.out.println("\n --- Travel agency menu --- ");
 			System.out.println(" 0. Exit");
-			System.out.println(" 1. Tickets manager menu");
-			System.out.println(" 2. Tourists manager menu");
+			System.out.println(" 1. Manager");
+			System.out.println(" 2. Tourist");
 
-			menu_select = Main.enterIntValue("Select an item:", 0, 2);
+			menuSelect = Main.enterIntValue("Select an item:", 0, 2);
 			System.out.println(" --- Travel agency menu --- ");
 
-			switch (menu_select) {
+			switch (menuSelect) {
 				case 0:
 					return;
 				case 1:
-					ticketsManagerMenu(ticketsManager).execute();
+					managerMenu();
 					break;
 				case 2:
-					touristsManagerMenu(touristsManager).execute();
+					touristsManager.touristsMenu(ticketsManager);
 					break;
 			}
 		}
 	}
 
-	public Command ticketsManagerMenu(TicketsManager ticketsManager) {
-		TicketsManagerMenuCommand ticketsManagerMenuCommand = new TicketsManagerMenuCommand(ticketsManager);
+	public void managerMenu() {
+		while (true) {
+			int menuSelect = 0;
 
-		return ticketsManagerMenuCommand;
+			System.out.println("\n --- Manager menu --- ");
+			System.out.println(" 0. Exit");
+			System.out.println(" 1. Tickets manager menu");
+			System.out.println(" 2. Tourists manager menu");
+
+			menuSelect = Main.enterIntValue("Select an item:", 0, 2);
+			System.out.println(" --- Manager menu --- ");
+
+			switch (menuSelect) {
+				case 0:
+					return;
+				case 1:
+					ticketsManager.menu(touristsManager);
+					break;
+				case 2:
+					touristsManager.menu(ticketsManager);
+					break;
+			}
+		}
 	}
+	/* --- menu --- */
 
-	public Command touristsManagerMenu(TouristsManager touristsManager) {
-		TouristsManagerMenuCommand touristsManagerMenuCommand = new TouristsManagerMenuCommand(touristsManager);
-
-		return touristsManagerMenuCommand;
-	}
 }

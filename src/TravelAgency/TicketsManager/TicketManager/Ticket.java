@@ -1,33 +1,41 @@
 package TravelAgency.TicketsManager.TicketManager;
 
+import Main.Main;
 import TravelAgency.TicketsManager.TicketManager.ServicesManager.Service;
+import TravelAgency.TicketsManager.TicketsManager;
+
 import java.util.ArrayList;
 
 public class Ticket {
-	String name;
-	int price;
+	private String name;
+	private int price;
 	ArrayList<Service> services;
 
-	Ticket() {}
-
-	Ticket(String name, int price) {
+	public Ticket() {
+		services = new ArrayList<>();
+	}
+	public Ticket(String name, int price) {
 		setName(name);
 		setPrice(price);
+
+		services = new ArrayList<>();
 	}
 
-	public Service cloneObject() {
-		return new Service(getName(), getPrice());
+	public void close(TicketsManager ticketsManager) {
+		ticketsManager.deleteCreatedTicket(this);
+	}
+
+	public Ticket cloneObject() {
+		return new Ticket(getName(), getPrice());
 	}
 
 	@Override
 	public String toString() {
-		return String.format("%-10s - %d", getName(), getPrice());
+		return String.format("%s - %d $", getName(), getPrice());
 	}
 
-	public void addService(ArrayList<Service> service) {
 
-	}
-
+	/* --- getters & setters --- */
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -44,8 +52,37 @@ public class Ticket {
 		return price;
 	}
 
+	public int getAllPrice() {
+		if (services.isEmpty()) {
+			return getPrice();
+		}
+		int price = getPrice();
+
+		for (Service service:services) {
+			price += service.getPrice();
+		}
+
+		return price;
+	}
+	/* --- getters & setters --- */
+
+	/* --- others --- */
+	public void addService(Service service) {
+		if (service != null) {
+			services.add(service);
+		}
+	}
+	/* --- others --- */
+
 	/* --- static methods --- */
 	public static Ticket newTicket() {
-		return null;
+		Ticket ticket = new Ticket();
+		String name = Main.enterStringValue("Ticket name: ");
+		int price = Main.enterIntValue("Ticket price $: ", 0, 10000);
+
+		ticket.setName(name);
+		ticket.setPrice(price);
+
+		return ticket;
 	}
 }
