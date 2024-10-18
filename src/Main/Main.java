@@ -1,6 +1,7 @@
 package Main;
 
 import TravelAgency.*;
+
 import java.util.Scanner;
 
 public class Main {
@@ -22,8 +23,7 @@ public class Main {
 				if (value >= min && value <= max) {
 					return value;
 				}
-			}
-			else {
+			} else {
 				in.nextLine();
 			}
 		}

@@ -54,10 +54,8 @@ public class TouristsManager {
 		System.out.println("\n --- Tourists --- ");
 		if (tourists == null || tourists.isEmpty()) {
 			System.out.println("Tourists list is empty");
-		}
-
-		else {
-			for (Tourist tourist:tourists) {
+		} else {
+			for (Tourist tourist : tourists) {
 				System.out.println(tourist);
 			}
 		}
@@ -105,7 +103,7 @@ public class TouristsManager {
 			return false;
 		}
 
-		for (int i = 0; i < tourists.size();i++) {
+		for (int i = 0; i < tourists.size(); i++) {
 			System.out.println(" - " + i + "  " + tourists.get(i).getName());
 		}
 
@@ -113,7 +111,7 @@ public class TouristsManager {
 	}
 
 	public void deleteCreatedTicket(Ticket ticket) {
-		for (Tourist tourist:tourists) {
+		for (Tourist tourist : tourists) {
 			tourist.deleteCreatedTicket(ticket);
 		}
 	}

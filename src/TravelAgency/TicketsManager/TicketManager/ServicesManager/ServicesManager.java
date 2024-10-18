@@ -19,7 +19,7 @@ public class ServicesManager {
 	public String toString() {
 		String string = "\n --- Services Group (" + getName() + ") --- \n";
 
-		for (Service service:availableServices) {
+		for (Service service : availableServices) {
 			string += " - " + service + "\n";
 		}
 
@@ -60,7 +60,7 @@ public class ServicesManager {
 
 		System.out.println();
 
-		for (int i = 0; i < availableServices.size();i++) {
+		for (int i = 0; i < availableServices.size(); i++) {
 			System.out.println(" - " + i + "  " + availableServices.get(i).getName());
 		}
 
@@ -100,7 +100,7 @@ public class ServicesManager {
 		int availableCount;
 
 		name = Main.enterStringValue("Services group name: ");
-		availableCount = Main.enterIntValue("Available services count: ",0, 5);
+		availableCount = Main.enterIntValue("Available services count: ", 0, 5);
 
 		servicesManager.setName(name);
 		servicesManager.setAvailableCount(availableCount);

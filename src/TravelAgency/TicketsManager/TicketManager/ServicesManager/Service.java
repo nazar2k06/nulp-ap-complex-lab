@@ -6,7 +6,8 @@ public class Service {
 	public String name;
 	public int price;
 
-	Service() {}
+	Service() {
+	}
 
 	public Service(String name, int price) {
 		setName(name);

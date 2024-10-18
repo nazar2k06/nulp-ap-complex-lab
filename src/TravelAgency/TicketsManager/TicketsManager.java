@@ -50,10 +50,8 @@ public class TicketsManager {
 		System.out.print("\n --- Available tickets --- ");
 		if (ticketManagers == null || ticketManagers.isEmpty()) {
 			System.out.println("\nTickets list is empty");
-		}
-
-		else {
-			for (TicketManager ticketManager:ticketManagers) {
+		} else {
+			for (TicketManager ticketManager : ticketManagers) {
 				System.out.println(ticketManager);
 			}
 		}
@@ -101,7 +99,7 @@ public class TicketsManager {
 			return false;
 		}
 
-		for (int i = 0; i < ticketManagers.size();i++) {
+		for (int i = 0; i < ticketManagers.size(); i++) {
 			System.out.println(" - " + i + "  " + ticketManagers.get(i).getName());
 		}
 
@@ -109,7 +107,7 @@ public class TicketsManager {
 	}
 
 	public void deleteCreatedTicket(Ticket ticket) {
-		for (TicketManager ticketManager:ticketManagers) {
+		for (TicketManager ticketManager : ticketManagers) {
 			ticketManager.deleteCreatedTicket(ticket);
 		}
 	}

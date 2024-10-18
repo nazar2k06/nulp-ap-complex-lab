@@ -15,7 +15,7 @@ public class Tourist {
 	}
 
 	public void close(TicketsManager ticketsManager) {
-		for (Ticket ticket:tickets) {
+		for (Ticket ticket : tickets) {
 			ticket.close(ticketsManager);
 		}
 	}
@@ -25,7 +25,7 @@ public class Tourist {
 		String string = getName();
 
 		if (!tickets.isEmpty()) {
-			for (Ticket ticket:tickets) {
+			for (Ticket ticket : tickets) {
 				string += " <" + ticket.getName() + ">";
 			}
 
@@ -129,7 +129,7 @@ public class Tourist {
 			return false;
 		}
 
-		for (int i = 0; i < tickets.size();i++) {
+		for (int i = 0; i < tickets.size(); i++) {
 			System.out.println(" - " + i + "  " + tickets.get(i).getName());
 		}
 

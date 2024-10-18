@@ -20,7 +20,7 @@ public class TicketManager {
 	}
 
 	public void close(TouristsManager touristsManager) {
-		for (Ticket ticket:createdTickets) {
+		for (Ticket ticket : createdTickets) {
 			touristsManager.deleteCreatedTicket(ticket);
 		}
 	}
@@ -32,7 +32,7 @@ public class TicketManager {
 		string += demoTicket + "\n";
 
 		if (!availableServicesManager.isEmpty()) {
-			for (ServicesManager servicesManager:availableServicesManager) {
+			for (ServicesManager servicesManager : availableServicesManager) {
 				string += servicesManager;
 			}
 		}
@@ -77,14 +77,14 @@ public class TicketManager {
 	}
 
 	private boolean printServicesManagersIndex() {
-		if (availableServicesManager== null || availableServicesManager.isEmpty()) {
+		if (availableServicesManager == null || availableServicesManager.isEmpty()) {
 			System.out.println("Services managers list is empty");
 			return false;
 		}
 
 		System.out.println();
 
-		for (int i = 0; i < availableServicesManager.size();i++) {
+		for (int i = 0; i < availableServicesManager.size(); i++) {
 			System.out.println(" - " + i + "  " + availableServicesManager.get(i).getName());
 		}
 

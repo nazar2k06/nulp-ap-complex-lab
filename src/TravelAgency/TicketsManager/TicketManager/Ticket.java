@@ -14,6 +14,7 @@ public class Ticket {
 	public Ticket() {
 		services = new ArrayList<>();
 	}
+
 	public Ticket(String name, int price) {
 		setName(name);
 		setPrice(price);
@@ -58,7 +59,7 @@ public class Ticket {
 		}
 		int price = getPrice();
 
-		for (Service service:services) {
+		for (Service service : services) {
 			price += service.getPrice();
 		}
 
